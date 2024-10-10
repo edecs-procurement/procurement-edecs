@@ -1,0 +1,33 @@
+.navbar {
+    background-color: #fff; /* أو أي لون تريده */
+    padding: 10px 20px; /* الهوامش */
+    display: flex;
+    align-items: center; /* محاذاة الشعار والقوائم */
+    justify-content: space-between; /* توزيع العناصر بشكل متساوي */
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center; /* محاذاة العناصر عمودياً */
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center; /* محاذاة الشعار عمودياً */
+}
+
+.navbar-logo-svg {
+    width:80px; /* عرض الشعار */
+    height: auto; /* الحفاظ على نسبة الطول إلى العرض */
+}
+
+.navbar-menu {
+    list-style: none; /* إزالة النقاط من القائمة */
+    display: flex; /* جعل القائمة أفقية */
+    margin: 0; /* إزالة الهوامش الافتراضية */
+    padding: 0; /* إزالة الحشوات الافتراضية */
+}
+
+.navbar-menu li {
+    margin-left: 20px; /* إضافة مسافة بين العناصر */
+}
