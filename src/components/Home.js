@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get('https://new-e-learning-edecs-default-rtdb.firebaseio.com/vendors.json');
+        const response = await axios.get('https://procurement-edecs-default-rtdb.firebaseio.com/vendors.json');
         const vendorsData = Object.entries(response.data).map(([id, data]) => ({
           id,
           ...data.vendorInfo // الوصول إلى خصائص vendorInfo
