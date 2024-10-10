@@ -193,7 +193,7 @@ const VendorDetail = () => {
                         <Text style={styles.label}>Federation Registration:</Text>
                         <Text style={styles.content}>{vendor.federation}</Text>
                     </View>
-                
+                )} 
                 {vendor.classification && (
                     <View style={styles.container}>
                         <Text style={styles.label}>Classification:</Text>
