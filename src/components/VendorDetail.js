@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 });
 
 // Firebase URL
-const firebaseUrl = 'https://new-e-learning-edecs-default-rtdb.firebaseio.com/';
+const firebaseUrl = 'https://procurement-edecs-default-rtdb.firebaseio.com/';
 
 const VendorDetail = () => {
     const { id } = useParams();
