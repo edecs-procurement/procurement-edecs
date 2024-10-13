@@ -4,13 +4,18 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 /* تنسيق الحاوية الرئيسية */
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 90%;
+  margin: 20px auto;
+  padding: 30px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -18,35 +23,52 @@ body {
 
 /* تنسيق العنوان */
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #333;
   text-align: center;
+  margin-bottom: 25px;
+}
+
+/* تنسيق حقل البحث */
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
   margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 /* تنسيق القائمة */
-ul {
+.vendor-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
 /* تنسيق عناصر القائمة */
-ul li {
+.vendor-item {
   background-color: #e3f2fd;
   margin: 10px 0;
   padding: 15px;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-ul li:hover {
+.vendor-item:hover {
   background-color: #bbdefb;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* تنسيق الروابط */
-ul li a {
+.vendor-link {
   text-decoration: none;
   color: #007bff;
   font-size: 1.2rem;
@@ -54,20 +76,11 @@ ul li a {
   display: block;
 }
 
-ul li a:hover {
+.vendor-link:hover {
   text-decoration: underline;
 }
 
-/* تنسيق الروابط بدون اسم */
-ul li a::after {
+/* تنسيق النص عندما لا يكون هناك اسم */
+.vendor-link::after {
   color: #ff5252;
-}
-/* تنسيق حقل البحث */
-.search-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
 }
