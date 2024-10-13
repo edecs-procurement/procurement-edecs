@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './Home.css'; // استيراد ملف CSS
+import './Home.css';
 
 const Home = () => {
   const [vendors, setVendors] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // حالة لتخزين نص البحث
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchVendors = async () => {
@@ -14,7 +14,7 @@ const Home = () => {
         const response = await axios.get('https://procurement-edecs-default-rtdb.firebaseio.com/vendors.json');
         const vendorsData = Object.entries(response.data).map(([id, data]) => ({
           id,
-          ...data.vendorInfo // الوصول إلى خصائص vendorInfo
+          ...data.vendorInfo
         }));
         setVendors(vendorsData);
       } catch (error) {
@@ -25,7 +25,6 @@ const Home = () => {
     fetchVendors();
   }, []);
 
-  // تصفية الموردين بناءً على نص البحث
   const filteredVendors = vendors.filter(vendor =>
     vendor.vendorName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -37,13 +36,15 @@ const Home = () => {
         type="text"
         placeholder="ابحث عن مورد..."
         value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)} // تحديث نص البحث
+        onChange={e => setSearchTerm(e.target.value)}
         className="search-input"
       />
-      <ul>
+      <ul className="vendor-list">
         {filteredVendors.map(vendor => (
-          <li key={vendor.id}>
-            <Link to={`/vendor/${vendor.id}`}>{vendor.vendorName || 'لا يوجد اسم'}</Link>
+          <li key={vendor.id} className="vendor-item">
+            <Link to={`/vendor/${vendor.id}`} className="vendor-link">
+              {vendor.vendorName || 'لا يوجد اسم'}
+            </Link>
           </li>
         ))}
       </ul>
