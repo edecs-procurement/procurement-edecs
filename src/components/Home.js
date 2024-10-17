@@ -1,4 +1,3 @@
-// src/components/Home.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -12,10 +11,13 @@ const Home = () => {
     const fetchVendors = async () => {
       try {
         const response = await axios.get('https://procurement-edecs-default-rtdb.firebaseio.com/vendors.json');
+        
+        // Map the data to extract vendor info
         const vendorsData = Object.entries(response.data).map(([id, data]) => ({
           id,
-          ...data.vendorInfo
+          ...data.vendorInfo,  // Spread the vendorInfo properties
         }));
+        
         setVendors(vendorsData);
       } catch (error) {
         console.error('حدث خطأ أثناء جلب البيانات:', error);
@@ -25,8 +27,9 @@ const Home = () => {
     fetchVendors();
   }, []);
 
+  // Filter vendors based on search term
   const filteredVendors = vendors.filter(vendor =>
-    vendor.vendorName?.toLowerCase().includes(searchTerm.toLowerCase())
+    vendor.registeredCompanyName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -40,13 +43,17 @@ const Home = () => {
         className="search-input"
       />
       <ul className="vendor-list">
-        {filteredVendors.map(vendor => (
-          <li key={vendor.id} className="vendor-item">
-            <Link to={`/vendor/${vendor.id}`} className="vendor-link">
-              {vendor.vendorName || 'لا يوجد اسم'}
-            </Link>
-          </li>
-        ))}
+        {filteredVendors.length > 0 ? (
+          filteredVendors.map(vendor => (
+            <li key={vendor.id} className="vendor-item">
+              <Link to={`/vendor/${vendor.id}`} className="vendor-link">
+                {vendor.registeredCompanyName || 'لا يوجد اسم'}
+              </Link>
+            </li>
+          ))
+        ) : (
+          <li className="vendor-item">لا توجد بيانات موردين متاحة.</li>
+        )}
       </ul>
     </div>
   );
