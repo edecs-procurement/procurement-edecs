@@ -16,7 +16,7 @@ Font.register({
     ],
 });
 
-// Define PDF styles
+// تعديل تنسيق الروابط والنصوص لتكون الروابط تحت النص
 const styles = StyleSheet.create({
     page: {
         padding: 20,
@@ -39,12 +39,13 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottom: '1px solid #ccc',
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
     label: {
         fontWeight: 'bold',
         color: '#1E5D87',
+        marginBottom: 5,
     },
     content: {
         fontSize: 12,
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     link: {
         color: '#1E5D87',
         textDecoration: 'underline',
+        marginTop: 5,
     },
 });
 
@@ -89,7 +91,47 @@ const VendorDetail = () => {
         fetchVendorData();
     }, [id]);
 
-    // PDF document generation
+    // Updated ordered fields to include all necessary fields with correct names
+    const orderedFields = [
+        'timestamp',
+        'serviceProviderName',
+        'serviceType',
+        'contactPerson',
+        'nationalIdNo', // Correct name for National ID
+        'contactMobile',
+        'email',
+        'scopeOfWork',
+        'preferredPaymentMethod',
+        'shortDescription', 
+        'description',
+        'remarks',
+        'nationalIdCopy', // Correct field for National ID Copy
+        'bankLetterIncludingSwift',
+        'registeredCompanyName',
+        'subcontractorSupplier',
+        'companyWebsite',
+        'proposedAssignedProject',
+        'commercialRegistrationNo',
+        'taxCardNo',
+        'federationForConstruction',
+        'classification',
+        'vatRegistration',
+        'bankAccountNo',
+        'swiftCode',
+        'companyProfile',
+        'prequalificationDocument',
+        'commercialRegistration',
+        'taxCard',
+        'federationRegistration',
+        'officialBankLetter'
+    ];
+
+    // Helper function to format labels
+    const formatLabel = (key) => {
+        const formattedLabel = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        return formattedLabel.split('_').join(' ');
+    };
+
     const VendorDocument = () => (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -97,27 +139,21 @@ const VendorDetail = () => {
                     <Image src={logo} style={styles.logo} />
                     <Text style={styles.subHeader}>Supplier Registration</Text>
                 </View>
-                {Object.entries(vendor).map(([key, value]) =>
-                    value ? (
+                {orderedFields.map((key) =>
+                    vendor[key] ? (
                         <View style={styles.container} key={key}>
                             <Text style={styles.label}>{formatLabel(key)}:</Text>
                             {key.includes('Link') || key.includes('Copy') ? (
-                                <Link style={styles.link} src={value}>{value}</Link>
+                                <Link style={styles.link} src={vendor[key]}>{vendor[key]}</Link>
                             ) : (
-                                <Text style={styles.content}>{value}</Text>
+                                <Text style={styles.content}>{vendor[key]}</Text>
                             )}
                         </View>
-                    ) : null
+                    ) : null // Do not render anything if there is no data
                 )}
             </Page>
         </Document>
     );
-
-    // Helper function to format labels
-    const formatLabel = (key) => {
-        const formattedLabel = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-        return formattedLabel.split('_').join(' ');
-    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -131,16 +167,16 @@ const VendorDetail = () => {
         <div className="vendor-detail">
             <h1>Vendor Details</h1>
             <div>
-                {Object.entries(vendor).map(([key, value]) =>
-                    value ? (
+                {orderedFields.map((key) =>
+                    vendor[key] ? (
                         <p key={key}>
                             <strong>{formatLabel(key)}:</strong> {key.includes('Link') || key.includes('Copy') ? (
-                                <a href={value} target="_blank" rel="noopener noreferrer">{value}</a>
+                                <a href={vendor[key]} target="_blank" rel="noopener noreferrer">{vendor[key]}</a>
                             ) : (
-                                value
+                                vendor[key]
                             )}
                         </p>
-                    ) : null
+                    ) : null // Do not render anything if there is no data
                 )}
             </div>
             <PDFDownloadLink document={<VendorDocument />} fileName={`vendor_${id}.pdf`}>
