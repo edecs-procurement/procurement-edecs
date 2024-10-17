@@ -35,7 +35,7 @@ const Home = () => {
 
   // Filter vendors based on search term
   const filteredVendors = vendors.filter(vendor =>
-    vendor.registeredCompanyName?.toLowerCase().includes(searchTerm.toLowerCase())
+    vendor.contactPerson?.toLowerCase().includes(searchTerm.toLowerCase()) // Use contactPerson or any existing property
   );
 
   return (
@@ -53,7 +53,7 @@ const Home = () => {
           filteredVendors.map(vendor => (
             <li key={vendor.id} className="vendor-item">
               <Link to={`/vendor/${vendor.id}`} className="vendor-link">
-                {vendor.registeredCompanyName || 'لا يوجد اسم'}
+                {vendor.registeredCompanyName || vendor.contactPerson || 'لا يوجد اسم'} {/* Fallback to contactPerson */}
               </Link>
             </li>
           ))
