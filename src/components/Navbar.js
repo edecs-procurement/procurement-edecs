@@ -1,21 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../EDECS Logo_.svg"; // استيراد الشعار
-import "./Navbar.css"; // تأكد من استيراد ملف CSS
+import { ReactComponent as Logo } from "../EDECS Logo_.svg";
+import "./Navbar.css";
 
-const Navbar = () => {
-    return (
-        <nav className="navbar">
-            <div className="navbar-container">
-                <Link to="/" className="navbar-logo">
-                    <Logo className="navbar-logo-svg" /> {/* عرض الشعار كمكون SVG */}
-                </Link>
-                <ul className="navbar-menu">
-                    <li><Link to="/">Home</Link></li>
-                </ul>
-            </div>
-        </nav>
-    );
-}
+const Navbar = ({ isLoggedIn }) => {
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
+          <Logo className="navbar-logo-svg" />
+        </Link>
+        <ul className="navbar-menu">
+          {isLoggedIn && ( // عرض زر Home فقط إذا كان المستخدم مسجل الدخول
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;
